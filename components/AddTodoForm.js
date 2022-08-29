@@ -4,28 +4,33 @@ import { addTodoAsync } from '../redux/todoSlice';
 
 const AddTodoForm = () => {
 	const [value, setValue] = useState('');
+	const [error, setError] = useState('');
 	const dispatch = useDispatch();
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 		setValue('');
 		if (!value || /(\B(\?\?|\?)|\B(!!|!)|\B(\[\])|\b(RWC)|\b(TODO))[:;.,-]?\d*($|\s.*$|\(.*$)/gmi.test(value))
-		return;
+		{
+			setError('Invalid input')
+			return;}
 		else {
 			dispatch(
 				addTodoAsync({
 					title: value,
 				})
 			);
+			setError('')
 		}
 	};
 
 	return (
-		<form onSubmit={onSubmit} className='flex items-center py-2 border-b-2 border-gray-300 focus-within:border-b-2 focus-within:border-pink-600'>
+		<>
+			<form onSubmit={onSubmit} className='flex items-center py-2 border-b-2 text-black border-gray-300 focus-within:border-b-2 focus-within:border-pink-600'>
 			<label className='sr-only'>Name</label>
 			<input
 				type='text'
-				className='flex-1 px-2.5 bg-gray-200 placeholder-gray-500 focus:outline-none'
+				className='flex-1 px-2.5 bg-gray-200 placeholder-gray-500 focus:outline-none '
 				placeholder='Add todo...'
 				value={value}
 				onChange={(event) => setValue(event.target.value)}
@@ -38,6 +43,8 @@ const AddTodoForm = () => {
 				</svg>
 			</button>
 		</form>
+			<p className='text-red-500'>{error}</p>
+		</>
 	);
 };
 
