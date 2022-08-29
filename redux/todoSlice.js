@@ -11,7 +11,6 @@ export const getTodosAsync = createAsyncThunk(
 		return { todos };
 	}
 );
-
 export const addTodoAsync = createAsyncThunk(
 	'todos/addTodoAsync',
 	async (payload) => {
@@ -28,8 +27,9 @@ export const toggleCompleteAsync = createAsyncThunk(
 	async (payload) => {
 		const resp = await axios.patch(`https://62e894c693938a545be7e19b.mockapi.io/kdAPI/TodoItems/${payload.id}`, {
 			Checked: payload.complete
-		});	
+		});
 		const todo = await resp.data;
+		console.log("🚀 ~ file: todoSlice.js ~ line 32 ~ todo", todo)
 		return { todo };
 	}
 );
@@ -73,7 +73,8 @@ export const todoSlice = createSlice({
 		[toggleCompleteAsync.fulfilled]: (state, action) => {
 			const index = state.findIndex(
 				(todo) => todo.id === action.payload.todo.id);
-			state[index].completed = action.payload.todo.Checked;
+			state[index].Checked = action.payload.todo.Checked;
+			return action.payload.todos;
 		},
 		[deleteTodoAsync.fulfilled]: (state, action) => {
 			return state.filter((todo) => todo.id !== action.payload.id);

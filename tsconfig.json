@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "./dist",
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
@@ -16,6 +17,6 @@
     "incremental": true,
     "useUnknownInCatchVariables": false
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/TodoList.js", "redux/store.tsx", "components/AddTodoForm.js", "components/TotalCompleteItems.js"],
+  "include": ["next-env.d.ts","./src/**/*", "**/*.ts", "**/*.tsx", "components/TodoList.js", "redux/store.tsx", "components/AddTodoForm.js", "components/TotalCompleteItems.js", "components/TodoItem.js"],
   "exclude": ["node_modules"]
 }
