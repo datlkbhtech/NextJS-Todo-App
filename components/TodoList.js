@@ -12,7 +12,7 @@ const TodoList = () => {
 	}, [dispatch]);
 
 	return (
-		<ul className='list-group'>
+		<ul >
 			{todos.map((todo) => (
 				<TodoItem key={todo.id} id={todo.id} title={todo.Name} complete={todo.Checked} />
 			))}

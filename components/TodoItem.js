@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { toggleCompleteAsync, deleteTodoAsync } from '../redux/todoSlice';
 
@@ -14,8 +14,8 @@ const TodoItem = ({ id, title, complete }) => {
 	};
 
 	return (
-		<>
-		<li className={`list-group-item `} >
+		<div>
+			<li className={complete ? " complete" : ""} >
 			<div className='icon-container flex justify-between items-center space-x-1 py-1.5 px-2  border-b border-gray-300 transition duration-300 ease-in no-underline text-gray-800'>
 				<span className='flex justify-start'>
 					<input
@@ -34,7 +34,7 @@ const TodoItem = ({ id, title, complete }) => {
 			</div>
 		</li>
 		<br />
-		</>
+		</div>
 	);
 };
 

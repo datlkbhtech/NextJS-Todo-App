@@ -1,35 +1,35 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice,PayloadAction } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
-const url = 'https://62e894c693938a545be7e19b.mockapi.io/kdAPI/TodoItems'
-const axios = require('axios').default;
+import instance from './utils/request'
 
 export const getTodosAsync = createAsyncThunk(
 	'todos/getTodosAsync',
 	async () => {
-		const resp = await axios.get(url);
+		const resp = await instance.get();
 		const todos = await resp.data;
 		return { todos };
 	}
 );
+
 export const addTodoAsync = createAsyncThunk(
 	'todos/addTodoAsync',
 	async (payload) => {
-		const resp = await axios
-			.post(url, {
+		const resp = await instance
+			.post('',{
 				Name: payload.title
 			})
 		const todo = await resp.data;
 		return { todo };
 	}
 );
+
 export const toggleCompleteAsync = createAsyncThunk(
 	'todos/completeTodoAsync',
 	async (payload) => {
-		const resp = await axios.patch(`https://62e894c693938a545be7e19b.mockapi.io/kdAPI/TodoItems/${payload.id}`, {
+		const resp = await instance.patch(`${payload.id}`, {
 			Checked: payload.complete
 		});
 		const todo = await resp.data;
-		console.log("🚀 ~ file: todoSlice.js ~ line 32 ~ todo", todo)
 		return { todo };
 	}
 );
@@ -37,9 +37,9 @@ export const toggleCompleteAsync = createAsyncThunk(
 export const deleteTodoAsync = createAsyncThunk(
 	'todos/deleteTodoAsync',
 	async (payload) => {
-		await axios.delete(`https://62e894c693938a545be7e19b.mockapi.io/kdAPI/TodoItems/${payload.id}`, {
+		await instance.delete(`${payload.id}`, {
 		});
-			return { id: payload.id };
+		return { id: payload.id };
 	}
 );
 

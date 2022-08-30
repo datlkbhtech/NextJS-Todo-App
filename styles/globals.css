@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -17,13 +18,20 @@ a {
 * {
   box-sizing: border-box;
 }
+
 .bg-todo-header-day {
   background-image: url("../assets/images/header-afternoon.4ab6b0e9.jpg");
 }
+
+.complete {
+  text-decoration: line-through;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
