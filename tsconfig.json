@@ -17,6 +17,6 @@
     "incremental": true,
     "useUnknownInCatchVariables": false
   },
-  "include": ["next-env.d.ts","./src/**/*", "**/*.ts", "**/*.tsx", "components/TodoList.js", "redux/store.tsx", "components/AddTodoForm.js", "components/TotalCompleteItems.js", "components/TodoItem.js", "pages/layout/Header.js", "pages/layout/Footer.js", "redux/todoSlice.js"],
+  "include": ["next-env.d.ts","./src/**/*", "**/*.ts", "**/*.tsx", "components/TodoList.tsx", "redux/store.ts", "components/AddTodoForm.tsx", "components/TotalCompleteItems.ts", "components/TodoItem.js", "pages/layout/Header.tsx", "pages/layout/Footer.tsx", "redux/todoSlice.tsx"],
   "exclude": ["node_modules"]
 }

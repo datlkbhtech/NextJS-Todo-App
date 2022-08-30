@@ -5,9 +5,9 @@ import { addTodoAsync } from '../redux/todoSlice';
 const AddTodoForm = () => {
 	const [value, setValue] = useState('');
 	const [error, setError] = useState('');
-	const dispatch = useDispatch();
+	const dispatch = useDispatch<any>();
 
-	const onSubmit = (event) => {
+	const onSubmit = (event:any) => {
 		event.preventDefault();
 		setValue('');
 		if (!value || /(\B(\?\?|\?)|\B(!!|!)|\B(\[\])|\b(RWC)|\b(TODO))[:;.,-]?\d*($|\s.*$|\(.*$)/gmi.test(value))

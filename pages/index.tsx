@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import AddTodoForm from '../components/AddTodoForm.js'
+import AddTodoForm from '../components/AddTodoForm'
 import TodoList from '../components/TodoList'
 import Header from './layout/Header'
 import Footer from './layout/Footer'

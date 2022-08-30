@@ -1,11 +1,11 @@
-import { createAsyncThunk, createSlice,PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { nanoid } from 'nanoid';
 import instance from './utils/request'
 
 export const getTodosAsync = createAsyncThunk(
 	'todos/getTodosAsync',
 	async () => {
-		const resp = await instance.get();
+		const resp = await instance.get('');
 		const todos = await resp.data;
 		return { todos };
 	}
@@ -13,7 +13,7 @@ export const getTodosAsync = createAsyncThunk(
 
 export const addTodoAsync = createAsyncThunk(
 	'todos/addTodoAsync',
-	async (payload) => {
+	async (payload:any) => {
 		const resp = await instance
 			.post('',{
 				Name: payload.title
@@ -25,7 +25,7 @@ export const addTodoAsync = createAsyncThunk(
 
 export const toggleCompleteAsync = createAsyncThunk(
 	'todos/completeTodoAsync',
-	async (payload) => {
+	async (payload:any) => {
 		const resp = await instance.patch(`${payload.id}`, {
 			Checked: payload.complete
 		});
@@ -36,7 +36,7 @@ export const toggleCompleteAsync = createAsyncThunk(
 
 export const deleteTodoAsync = createAsyncThunk(
 	'todos/deleteTodoAsync',
-	async (payload) => {
+	async (payload:any) => {
 		await instance.delete(`${payload.id}`, {
 		});
 		return { id: payload.id };
@@ -47,7 +47,7 @@ export const todoSlice = createSlice({
 	name: 'todos',
 	initialState: [],
 	reducers: {
-		addTodo: (state, action) => {
+		addTodo: (state:any, action) => {
 			const todo = {
 				id: nanoid(),
 				title: action.payload.title,
@@ -55,29 +55,29 @@ export const todoSlice = createSlice({
 			};
 			state.push(todo);
 		},
-		toggleComplete: (state, action) => {
-			const index = state.findIndex((todo) => todo.id === action.payload.id);
+		toggleComplete: (state:any, action) => {
+			const index = state.findIndex((todo: { id: any; }) => todo.id === action.payload.id);
 			state[index].completed = action.payload.complete;
 		},
 		deleteTodo: (state, action) => {
-			return state.filter((todo) => todo.id !== action.payload.id);
+			return state.filter((todo: { id: any; }) => todo.id !== action.payload.id);
 		},
 	},
 	extraReducers: {
-		[getTodosAsync.fulfilled]: (_state, action) => {
+		[getTodosAsync.fulfilled as any]: (_state: any, action: { payload: { todos: any; }; }) => {
 			return action.payload.todos;
 		},
-		[addTodoAsync.fulfilled]: (state, action) => {
+		[addTodoAsync.fulfilled as any]: (state: any[], action: { payload: { todo: any; }; }) => {
 			state.push(action.payload.todo);
 		},
-		[toggleCompleteAsync.fulfilled]: (state, action) => {
+		[toggleCompleteAsync.fulfilled as any]: (state: any[], action: { payload: { todo: { id: any; Checked: any; }; todos: any; }; }) => {
 			const index = state.findIndex(
-				(todo) => todo.id === action.payload.todo.id);
+				(todo: { id: any; }) => todo.id === action.payload.todo.id);
 			state[index].Checked = action.payload.todo.Checked;
 			return action.payload.todos;
 		},
-		[deleteTodoAsync.fulfilled]: (state, action) => {
-			return state.filter((todo) => todo.id !== action.payload.id);
+		[deleteTodoAsync.fulfilled as any]: (state: any[], action: { payload: { id: any; }; }) => {
+			return state.filter((todo: { id: any; }) => todo.id !== action.payload.id);
 		},
 	},
 });
