@@ -1,17 +1,11 @@
 import '../styles/globals.css'
 import { Provider } from 'react-redux'
 import type { AppProps } from 'next/app'
-import { configureStore } from '@reduxjs/toolkit';
-import todoReducer from '../redux/todoSlice';
+import {store} from '../redux/store'
 
-const userStore = configureStore({
-  reducer: {
-    todos: todoReducer,
-  },
-});
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={userStore}>
+    <Provider store={store}>
       <Component {...pageProps} />
     </Provider>
   )
