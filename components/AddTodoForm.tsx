@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../redux/store';
 import { addTodoAsync } from '../redux/todoSlice';
 
 const AddTodoForm = () => {
-	const [value, setValue] = useState('');
-	const [error, setError] = useState('');
-	const dispatch = useDispatch<any>();
+	const [value, setValue] = useState<string>('');
+	const [error, setError] = useState<string>('');
+	const dispatch = useDispatch<AppDispatch>();
 
-	const onSubmit = (event:any) => {
+	const onSubmit = (event: React.SyntheticEvent) => {
 		event.preventDefault();
 		setValue('');
 		if (!value || /(\B(\?\?|\?)|\B(!!|!)|\B(\[\])|\b(RWC)|\b(TODO))[:;.,-]?\d*($|\s.*$|\(.*$)/gmi.test(value))
@@ -21,12 +22,6 @@ const AddTodoForm = () => {
 			setError('')
 		}
 	};
-	// const dispatch = useDispatch<AppDispatch>();
-
-	// useEffect(() => {
-
-	// 	dispatch(getUsers());
-	// }, []);
 	return (
 		<div>
 			<form onSubmit={onSubmit} className='flex items-center py-2 border-b-2 text-black border-gray-300 focus-within:border-b-2 focus-within:border-pink-600'>
